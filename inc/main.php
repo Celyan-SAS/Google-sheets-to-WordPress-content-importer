@@ -199,10 +199,6 @@ class importcsv{
     
     public function ydcsv_cron_reader(){
         /*FIND THE NEXT ONE TO READ*/
-        //get 
-        
-$mail_test = "START";
-
         $list_urls = get_option($this->_list_urls_name,false);
         if($list_urls){
             $list_decoded = json_decode($list_urls,true);
@@ -246,10 +242,7 @@ $mail_test = "START";
                 }
             }
                    
-        }
-        
-        
-$mail_test.= "key to use : ".$key_to_use;        
+        } 
 
         $list_decoded['last_used_key'] = $key_to_use;
         
@@ -258,19 +251,7 @@ $mail_test.= "key to use : ".$key_to_use;
         /*save*/
         update_option($this->_list_urls_name,$tosave);
         
-        
-$mail_test.= "|||||||||||||||to save : ".$tosave;
-        
-        
-        $this->import_data_from_csv($key_to_use);
-        
-        
-$to = 'silver.celyan@gmail.com';
-$subject = 'cron test infos ';
-$body = $mail_test;
-// send email
-wp_mail($to, $subject, $body);
-        
+        $this->import_data_from_csv($key_to_use);        
     }
     
     public function import_data_from_csv($key){
@@ -359,6 +340,8 @@ break;//ONLY FOR TEST
         $data['post_type'] = $list_decoded[$key]['cpt'];
         $data['author'] = $list_decoded[$key]['author'];
         
+        $user_author_data = get_userdata( $data['author'] );
+        
         /* INSERT POST */
         $new_post_id = $this->insert_post($data);
         if($new_post_id){
@@ -381,7 +364,11 @@ break;//ONLY FOR TEST
             //Send mail
             $edit_url = admin_url('post.php?post=' . $new_post_id . '&action=edit');
             //$to = 'contact@citoyens.com';
-            $to = 'silver.celyan@gmail.com';
+            if(isset($user_author_data->user_email) && $user_author_data->user_email!=""){
+                $to = $user_author_data->user_email;
+            }else{
+                $to = 'silver.celyan@gmail.com';
+            }
             $subject = '[94 Cron] ' . $data['post_title'];
             $body = '<h1>Nouveau post ajouté' . "</h1>\n" .
                 '<p><strong>Editer&nbsp;:</strong> [<a href="' . $edit_url . '">' . $edit_url . "</a>]</p>\n" .
