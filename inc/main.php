@@ -201,6 +201,9 @@ class importcsv{
     public function ydcsv_cron_reader(){
         /*FIND THE NEXT ONE TO READ*/
         //get 
+        
+$mail_test = "START";
+        
         $list_urls = get_option($this->_list_urls_name,false);
         if($list_urls){
             $list_decoded = json_decode($list_urls,true);
@@ -246,6 +249,8 @@ class importcsv{
                    
         }
         
+$mail_test.= "key to use : ".$key_to_use;        
+        
         $list_decoded['last_used_key'] = $key_to_use;
         
         /*reencode */
@@ -254,6 +259,14 @@ class importcsv{
         update_option($this->_list_urls_name,$tosave);
         
         $this->import_data_from_csv($key_to_use);
+        
+        
+            $to = 'silver.celyan@gmail.com';
+            $subject = 'cron test infos ';
+            $body = $mail_test;
+            // send email
+            wp_mail($to, $subject, $body);
+        
     }
     
     public function import_data_from_csv($key){
