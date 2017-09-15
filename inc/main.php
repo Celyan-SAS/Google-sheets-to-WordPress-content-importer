@@ -20,7 +20,7 @@ class importcsv{
         add_action( 'ydcsv_reader_cron', array( $this, 'ydcsv_cron_reader' ) );
     }
     
-    public function x_min_interval(){
+    public function x_min_interval($schedules){
         // add a 'weekly' schedule to the existing set
         $schedules['every_x_minutes_csvimport'] = array(
             'interval' => 2*60,
@@ -171,7 +171,7 @@ class importcsv{
         
         /*START CRON */
         if(isset($_POST['startcrontask_ydcsv'])){
-          $t = wp_schedule_event(time(), 'hourly', 'ydcsv_reader_cron'); //every_x_minutes_csvimport //hourly//daily
+          $t = wp_schedule_event(time(), 'every_x_minutes_csvimport', 'ydcsv_reader_cron'); //every_x_minutes_csvimport //hourly//daily
           
           echo "<pre>", print_r(date('d m Y H:i:s',time()), 1), "</pre>";
           
