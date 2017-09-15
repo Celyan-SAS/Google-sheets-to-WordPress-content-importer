@@ -171,7 +171,7 @@ class importcsv{
         
         /*START CRON */
         if(isset($_POST['startcrontask_ydcsv'])){
-          $t = wp_schedule_event(time(), 'every_x_minutes_csvimport', 'ydcsv_reader_cron'); //every_x_minutes //hourly//daily
+          $t = wp_schedule_event(time(), 'hourly', 'ydcsv_reader_cron'); //every_x_minutes_csvimport //hourly//daily
           
           echo "<pre>", print_r(date('d m Y H:i:s',time()), 1), "</pre>";
           
