@@ -180,13 +180,11 @@ echo "<pre>", print_r("DATA CRON", 1), "</pre>";
         foreach($infos_cron as $task):
 
           foreach($task as $task_name=>$task_infos):
-            if($task_name == 'ydcsv_reader_cron'):
               echo "<div>Nom de la tache : ".$task_name."</div>";
               foreach($task_infos as $ti):
                 echo "<div>Type de programmation : ".$ti['schedule']."</div>";
               endforeach;
 
-            endif;
           endforeach;
 
         endforeach;
