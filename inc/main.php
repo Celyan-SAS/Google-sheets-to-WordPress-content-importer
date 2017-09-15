@@ -203,11 +203,6 @@ class importcsv{
         //get 
         
 $mail_test = "START";
-                $to = 'silver.celyan@gmail.com';
-$subject = 'cron test infos ';
-$body = $mail_test;
-// send email
-wp_mail($to, $subject, $body);
 
         $list_urls = get_option($this->_list_urls_name,false);
         if($list_urls){
@@ -256,11 +251,6 @@ wp_mail($to, $subject, $body);
         
         
 $mail_test.= "key to use : ".$key_to_use;        
-        $to = 'silver.celyan@gmail.com';
-$subject = 'cron test infos ';
-$body = $mail_test;
-// send email
-wp_mail($to, $subject, $body);
 
         $list_decoded['last_used_key'] = $key_to_use;
         
@@ -270,13 +260,7 @@ wp_mail($to, $subject, $body);
         update_option($this->_list_urls_name,$tosave);
         
         
-$mail_test.= "|||||||||||||||to save : ".$tosave;                
-        
-$to = 'silver.celyan@gmail.com';
-$subject = 'cron test infos ';
-$body = $mail_test;
-// send email
-wp_mail($to, $subject, $body);
+$mail_test.= "|||||||||||||||to save : ".$tosave;
         
         
         $this->import_data_from_csv($key_to_use);
