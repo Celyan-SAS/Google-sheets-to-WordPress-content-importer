@@ -13,7 +13,6 @@ class importcsv{
     public function __construct() {
         
         /**FRONT **/
-        add_filter( 'yd-recent-comment-list', array($this,'change_comment_list'), 10, 2 );
         
         /**ADMIN**/
         if(!is_admin()){
@@ -25,47 +24,6 @@ class importcsv{
         add_filter('cron_schedules', array($this,'x_min_interval'));
         //init cron, possibility
         add_action( 'ydcsv_reader_cron', array( $this, 'ydcsv_cron_reader' ) );
-    }
-    
-    public function change_comment_list( $comments_before, $number ) {        
-        //Get posts type "breves"
-        $args = array(
-            'posts_per_page'   => $number,
-            'orderby'          => 'date',
-            'order'            => 'DESC',
-            'post_type'        => 'breve',
-            'post_status'      => 'publish'
-        );
-        $posts_breves = get_posts( $args );
-
-        $comments_after = array();
-        if($posts_breves){
-            //$temp_array_post = array();
-//            foreach($posts_breves as $breve){
-//                $key = strtotime ($breve->post_date_gmt);
-//                $temp_array_post[$key] = $breve;
-//            }
-            
-            $temp_array_comment = array();
-            foreach($comments_before as $comment){
-                $comment_time = strtotime ($comment->comment_date_gmt);
-                
-                foreach($posts_breves as $breve){
-                    $breve_time = strtotime ($breve->post_date_gmt);
-                    if(intval($breve_time)>intval($comment_time)){
-                        $breveshift = array_shift($posts_breves);
-                        $comments_after[] = $breveshift;
-                    }
-                }
-                $comments_after[] = $comment;
-            }
-            
-        }else{
-            $comments_after = $comments_before;
-        }
-        
-        $comments_after = array_slice($comments_after, 0, ($number+1));        
-        return $comments_after;
     }
     
     public function x_min_interval(){
