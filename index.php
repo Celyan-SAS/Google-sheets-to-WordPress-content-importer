@@ -1,13 +1,13 @@
 <?php
 /**
- *	@package YD import csv
+ *	@package Google sheets to WordPress content importer
  *	@author Celyan
  *	@version 0.0.1
  */
 /*
- Plugin Name: YD import csv
+ Plugin Name: Google sheets to WordPress content importer
  Plugin URI: http://www.yann.com/
- Description: import csv on cpt/acf
+ Description: import google sheet on cpt/acf
  Version: 0.0.1
  Author: Yann Dubois
  Author URI: http://www.yann.com/
