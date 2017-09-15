@@ -461,10 +461,13 @@ break;//ONLY FOR TEST
       $client->setAccessType('offline');
       
       // Load previously authorized credentials from a file.
+      $accessToken = false;
       $credentialsPath = $this->expandHomeDirectory(CREDENTIALS_PATH);
-      
       if (file_exists($credentialsPath)) {
         $accessToken = json_decode(file_get_contents($credentialsPath), true);
+      }
+      
+      if($accessToken){
         $client->setAccessToken($accessToken);
         return $client;
         
@@ -472,9 +475,28 @@ break;//ONLY FOR TEST
           
         if(isset($_POST['authcodegoogle']) && $_POST['authcodegoogle']!=""){
             echo "<div>COPY THAT CODE INTO A FILE HERE : ".$credentialsPath."</div>";
-            $accessToken = $client->fetchAccessTokenWithAuthCode($_POST['authcodegoogle']);
-            echo '<div>'.$accessToken.'</div>';
+            $accessToken = $client->fetchAccessTokenWithAuthCode($_POST['authcodegoogle']);            
+            echo "<pre>", print_r($accessToken, 1), "</pre>";
         }
+        
+        $array_data = array(
+          'access_token' => 'ya29.GlvGBCcPZ08dF13ryrL-vTxsQP0v91ErzlU2nFH-xVI0RUJ06BM1P2ssAyx7DOMipO_KwdSTST4y5E73_vfap6AYnIEzj0dkghq-Skb8H4YV5EaAObEdo_S1fUoe',
+          'token_type' => 'Bearer',
+          'expires_in' => 3600,
+          'refresh_token' => '1/CKPBHRcqGvg-T3w8HioT-EDPEJlBVPb38bVDDx3sDjA',
+          'created' => 1505394862
+          );
+        
+        
+        /* Array(
+    [access_token] => ya29.GlvGBCcPZ08dF13ryrL-vTxsQP0v91ErzlU2nFH-xVI0RUJ06BM1P2ssAyx7DOMipO_KwdSTST4y5E73_vfap6AYnIEzj0dkghq-Skb8H4YV5EaAObEdo_S1fUoe
+    [token_type] => Bearer
+    [expires_in] => 3600
+    [refresh_token] => 1/CKPBHRcqGvg-T3w8HioT-EDPEJlBVPb38bVDDx3sDjA
+    [created] => 1505394862) */
+        
+$json_data = json_encode($array_data);
+var_dump($json_data);
         
         // Request authorization from the user.
         $authUrl = $client->createAuthUrl();
@@ -490,15 +512,15 @@ break;//ONLY FOR TEST
         //$authCode = '4/QMGGre4azer0WJ7zN1iPonwx3bvBGpc1Y9jJKSpvth8';
 
         // Exchange authorization code for an access token.
-//        $accessToken = $client->fetchAccessTokenWithAuthCode($authCode);
-//        
-//        // Store the credentials to disk.
+        $accessToken = $client->fetchAccessTokenWithAuthCode($authCode);
+        
+        // Store the credentials to disk.
 //        if(!file_exists(dirname($credentialsPath))) {
 //          mkdir(dirname($credentialsPath), 0700, true);
 //        }
-//        
-//        file_put_contents($credentialsPath, json_encode($accessToken));
-//        printf("Credentials saved to %s\n", $credentialsPath);
+        
+        file_put_contents($credentialsPath, json_encode($accessToken));
+        printf("Credentials saved to %s\n", $credentialsPath);
         return false;
       }
       
