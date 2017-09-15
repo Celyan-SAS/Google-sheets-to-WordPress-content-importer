@@ -203,7 +203,12 @@ class importcsv{
         //get 
         
 $mail_test = "START";
-        
+                $to = 'silver.celyan@gmail.com';
+$subject = 'cron test infos ';
+$body = $mail_test;
+// send email
+wp_mail($to, $subject, $body);
+
         $list_urls = get_option($this->_list_urls_name,false);
         if($list_urls){
             $list_decoded = json_decode($list_urls,true);
@@ -546,6 +551,9 @@ break;//ONLY FOR TEST
 
           foreach($task as $task_name=>$task_infos):
             if($task_name == 'ydcsv_reader_cron'):
+                
+                echo "<pre>", print_r($task_infos, 1), "</pre>";
+            
               echo "<div>Nom de la tache : ".$task_name."</div>";
               foreach($task_infos as $ti):
                 echo "<div>Type de programmation : ".$ti['schedule']."</div>";
