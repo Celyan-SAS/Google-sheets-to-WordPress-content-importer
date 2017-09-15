@@ -1,12 +1,6 @@
 <?php
 class importcsv{
     
-    /**
-     * TODO
-     * donner la possibilité d'ajouter une catégorie
-     * */
-    
-    
     public $_list_urls_name = 'ydimportcsv_listurls';
     public $_service;
     
