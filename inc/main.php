@@ -7,6 +7,8 @@ class importcsv{
     public function __construct() {
         
         /**FRONT **/
+        //init cron, possibility
+        add_action( 'ydcsv_reader_cron', array( $this, 'ydcsv_cron_reader' ) );
         
         /**ADMIN**/
         if(!is_admin()){
@@ -16,8 +18,6 @@ class importcsv{
         add_action ('init',array($this,'process_post'));
         
         add_filter('cron_schedules', array($this,'x_min_interval'));
-        //init cron, possibility
-        add_action( 'ydcsv_reader_cron', array( $this, 'ydcsv_cron_reader' ) );
     }
     
     public function x_min_interval($schedules){
