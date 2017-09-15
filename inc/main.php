@@ -8,6 +8,7 @@ class importcsv{
         
         /**FRONT **/
         //init cron, possibility
+        add_filter('cron_schedules', array($this,'x_min_interval'));
         add_action( 'ydcsv_reader_cron', array( $this, 'ydcsv_cron_reader' ) );
         
         /**ADMIN**/
@@ -16,8 +17,6 @@ class importcsv{
         }
         add_action('admin_menu', array($this, 'importcsv_menu'));
         add_action ('init',array($this,'process_post'));
-        
-        add_filter('cron_schedules', array($this,'x_min_interval'));
     }
     
     public function x_min_interval($schedules){
@@ -536,7 +535,7 @@ break;//ONLY FOR TEST
           foreach($task as $task_name=>$task_infos):
             if($task_name == 'ydcsv_reader_cron'):
                 
-                echo "<pre>", print_r($task_infos, 1), "</pre>";
+                //echo "<pre>", print_r($task_infos, 1), "</pre>";
             
               echo "<div>Nom de la tache : ".$task_name."</div>";
               foreach($task_infos as $ti):
