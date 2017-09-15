@@ -172,27 +172,6 @@ class importcsv{
         /*START CRON */
         if(isset($_POST['startcrontask_ydcsv'])){
           $t = wp_schedule_event(time(), 'every_x_minutes_csvimport', 'ydcsv_reader_cron'); //every_x_minutes_csvimport //hourly//daily
-          
-          echo "<pre>", print_r(date('d m Y H:i:s',time()), 1), "</pre>";
-          
-echo "<pre>", print_r("START CRON", 1), "</pre>";
-var_dump($t);
-
-echo "<pre>", print_r("DATA CRON", 1), "</pre>";
-        $infos_cron = _get_cron_array();
-        foreach($infos_cron as $task):
-
-          foreach($task as $task_name=>$task_infos):
-              echo "<div>Nom de la tache : ".$task_name."</div>";
-              foreach($task_infos as $ti):
-                echo "<div>Type de programmation : ".$ti['schedule']."</div>";
-              endforeach;
-
-          endforeach;
-
-        endforeach;
-
-die();
           echo '<div> Cron démaré !</div>';
         }
 
