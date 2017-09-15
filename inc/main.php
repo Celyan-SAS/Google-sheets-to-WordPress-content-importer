@@ -340,7 +340,8 @@ break;//ONLY FOR TEST
         $data['post_type'] = $list_decoded[$key]['cpt'];
         $data['author'] = $list_decoded[$key]['author'];
         
-        $user_author_data = get_userdata( $data['author'] );
+        //if we want to send to the user "author" linked t the file
+        //$user_author_data = get_userdata( $data['author'] );
         
         /* INSERT POST */
         $new_post_id = $this->insert_post($data);
@@ -364,11 +365,13 @@ break;//ONLY FOR TEST
             //Send mail
             $edit_url = admin_url('post.php?post=' . $new_post_id . '&action=edit');
             //$to = 'contact@citoyens.com';
-            if(isset($user_author_data->user_email) && $user_author_data->user_email!=""){
-                $to = $user_author_data->user_email;
-            }else{
-                $to = 'silver.celyan@gmail.com';
-            }
+//            if(isset($user_author_data->user_email) && $user_author_data->user_email!=""){
+//                $to = $user_author_data->user_email;
+//            }else{
+//                $to = 'silver.celyan@gmail.com';
+//            }
+            
+            $to = "redaction@citoyens.com";
             $subject = '[94 Cron] ' . $data['post_title'];
             $body = '<h1>Nouveau post ajouté' . "</h1>\n" .
                 '<p><strong>Editer&nbsp;:</strong> [<a href="' . $edit_url . '">' . $edit_url . "</a>]</p>\n" .
