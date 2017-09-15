@@ -172,6 +172,9 @@ class importcsv{
         /*START CRON */
         if(isset($_POST['startcrontask_ydcsv'])){
           $t = wp_schedule_event(time(), 'every_x_minutes', 'ydcsv_reader_cron'); //every_x_minutes //hourly//daily
+          echo "<pre>", print_r("START CRON", 1), "</pre>";
+          echo "<pre>", print_r($t, 1), "</pre>";
+          die();
           echo '<div> Cron démaré !</div>';
         }
 
