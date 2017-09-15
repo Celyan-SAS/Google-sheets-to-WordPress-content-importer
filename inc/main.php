@@ -172,9 +172,26 @@ class importcsv{
         /*START CRON */
         if(isset($_POST['startcrontask_ydcsv'])){
           $t = wp_schedule_event(time(), 'every_x_minutes', 'ydcsv_reader_cron'); //every_x_minutes //hourly//daily
-          echo "<pre>", print_r("START CRON", 1), "</pre>";
-          echo "<pre>", print_r($t, 1), "</pre>";
-          die();
+echo "<pre>", print_r("START CRON", 1), "</pre>";
+echo "<pre>", print_r($t, 1), "</pre>";
+
+echo "<pre>", print_r("DATA CRON", 1), "</pre>";
+        $infos_cron = _get_cron_array();
+        foreach($infos_cron as $task):
+
+          foreach($task as $task_name=>$task_infos):
+            if($task_name == 'ydcsv_reader_cron'):
+              echo "<div>Nom de la tache : ".$task_name."</div>";
+              foreach($task_infos as $ti):
+                echo "<div>Type de programmation : ".$ti['schedule']."</div>";
+              endforeach;
+
+            endif;
+          endforeach;
+
+        endforeach;
+
+die();
           echo '<div> Cron démaré !</div>';
         }
 
@@ -434,13 +451,13 @@ break;//ONLY FOR TEST
             echo "<pre>", print_r($accessToken, 1), "</pre>";
         }
         
-        $array_data = array(
-          'access_token' => 'ya29.GlvGBCcPZ08dF13ryrL-vTxsQP0v91ErzlU2nFH-xVI0RUJ06BM1P2ssAyx7DOMipO_KwdSTST4y5E73_vfap6AYnIEzj0dkghq-Skb8H4YV5EaAObEdo_S1fUoe',
-          'token_type' => 'Bearer',
-          'expires_in' => 3600,
-          'refresh_token' => '1/CKPBHRcqGvg-T3w8HioT-EDPEJlBVPb38bVDDx3sDjA',
-          'created' => 1505394862
-          );
+//        $array_data = array(
+//          'access_token' => 'ya29.GlvGBCcPZ08dF13ryrL-vTxsQP0v91ErzlU2nFH-xVI0RUJ06BM1P2ssAyx7DOMipO_KwdSTST4y5E73_vfap6AYnIEzj0dkghq-Skb8H4YV5EaAObEdo_S1fUoe',
+//          'token_type' => 'Bearer',
+//          'expires_in' => 3600,
+//          'refresh_token' => '1/CKPBHRcqGvg-T3w8HioT-EDPEJlBVPb38bVDDx3sDjA',
+//          'created' => 1505394862
+//          );
         
         
         /* Array(
@@ -450,8 +467,8 @@ break;//ONLY FOR TEST
     [refresh_token] => 1/CKPBHRcqGvg-T3w8HioT-EDPEJlBVPb38bVDDx3sDjA
     [created] => 1505394862) */
         
-$json_data = json_encode($array_data);
-var_dump($json_data);
+//$json_data = json_encode($array_data);
+//var_dump($json_data);
         
         // Request authorization from the user.
         $authUrl = $client->createAuthUrl();
