@@ -5,7 +5,7 @@ class importcsv{
     public $_service;
     
     public function __construct() {
-        
+        //$this->requirement_for_google();
         /**FRONT **/
         //init cron, possibility
         add_filter('cron_schedules', array($this,'x_min_interval'));
@@ -499,7 +499,13 @@ break;//ONLY FOR TEST
     }
     
     public function requirement_for_google(){
-        require_once __DIR__ . '/vendor/autoload.php'; 
+//        require_once __DIR__ . '/vendor/autoload.php'; 
+//        echo "<pre>", print_r(__DIR__ . '/vendor/autoload.php', 1), "</pre>";
+//        die();
+        
+//        require_once __DIR__ . '/src/Google/autoload.php'; 
+//        echo "<pre>", print_r(__DIR__ . '/vendor/google/apiclient-services/src/autoload.php', 1), "</pre>";
+//        die();
         define('APPLICATION_NAME', 'Other client 1');
         define('CREDENTIALS_PATH', __DIR__.'/quickstart.json');
         define('CLIENT_SECRET_PATH', __DIR__ . '/client_secret.json');
@@ -723,6 +729,9 @@ break;//ONLY FOR TEST
         
         //NEXT STEP GET ALL ACF FIELDS FOR THAT CPT
         //CREATE A SELECT TO ASSOCIATE A COLUMN TO A FIELD TO SAVE 
+        
+ 
+        
         if(isset($cptlinked) && $cptlinked != ""){
             $args = array(
               'posts_per_page'   => 1,
@@ -734,6 +743,14 @@ break;//ONLY FOR TEST
                 $fields_acf = get_field_objects($cptposts[0]->ID);
             }
         }
+        
+if(isset($_GET['silver']) && $_GET['silver']!=""){
+    echo "<pre>", print_r("INFOS", 1), "</pre>";
+    echo "<pre>", print_r($cptlinked, 1), "</pre>";
+    echo "<pre>", print_r($cptposts[0]->ID, 1), "</pre>";
+    echo "<pre>", print_r("CPT", 1), "</pre>";
+    echo "<pre>", print_r(get_field_objects($cptposts[0]->ID), 1), "</pre>";
+}
         
         /** GOOGLE API **/
         echo '<div>';
@@ -860,9 +877,9 @@ break;//ONLY FOR TEST
         /** TEST IMPORT **/
         echo '<form action="" method="POST">';        
             echo "<div>";
-            echo "<span>".__('Test import','yd_import_csv')."</span>";
+            //echo "<span>".__('Test import','yd_import_csv')."</span>";
             echo '<input type="hidden" name="test_import" value="1">';
-            echo '<input type="submit" value="'.__('Import','yd_import_csv').'">';
+            echo '<input type="submit" value="'.__('Test Import','yd_import_csv').'">';
             echo '</div>';
         echo '</form>';
         
