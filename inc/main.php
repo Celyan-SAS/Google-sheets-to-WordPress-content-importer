@@ -736,6 +736,9 @@ break;//ONLY FOR TEST
             $args = array(
               'posts_per_page'   => 1,
               'post_type'        => $cptlinked,
+              'post_status'      => "any",
+              'order'   => 'ASC',
+              'orderby' =>  'ID'
               );
             $cptposts = get_posts( $args );            
             if(isset($cptposts[0]->ID) && $cptposts[0]->ID != ""){
