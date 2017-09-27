@@ -731,7 +731,7 @@ break;//ONLY FOR TEST
         //CREATE A SELECT TO ASSOCIATE A COLUMN TO A FIELD TO SAVE 
         
  
-        
+        //VA CHERCHER LE PREMIER POST CREE QUI DOIS AVOIR été SAUVé AVEC TOUT LES ACF QU4ON CHERCHE
         if(isset($cptlinked) && $cptlinked != ""){
             $args = array(
               'posts_per_page'   => 1,
