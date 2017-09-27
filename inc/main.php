@@ -313,7 +313,6 @@ class importcsv{
             }
 break;//ONLY FOR TEST
         }
-        
     }
     
     public function create_post($line,$list_decoded,$key,$unique_id_value){   
@@ -331,10 +330,11 @@ break;//ONLY FOR TEST
             
             if(preg_match('#field_#', $key_al)){
                 $key_al = str_replace('_text', '', $key_al);
-                $list_acf[$key_al] = $value_al;
+                $list_acf[$key_al] = $line[$value_al];
             }
             
         }
+        
         //add post status
         $data['post_status'] = $list_decoded[$key]['association']['post_status'];
         $data['post_type'] = $list_decoded[$key]['cpt'];
