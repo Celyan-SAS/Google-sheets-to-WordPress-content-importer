@@ -747,14 +747,6 @@ break;//ONLY FOR TEST
             }
         }
         
-if(isset($_GET['silver']) && $_GET['silver']!=""){
-    echo "<pre>", print_r("INFOS", 1), "</pre>";
-    echo "<pre>", print_r($cptlinked, 1), "</pre>";
-    echo "<pre>", print_r($cptposts[0]->ID, 1), "</pre>";
-    echo "<pre>", print_r("CPT", 1), "</pre>";
-    echo "<pre>", print_r(get_field_objects($cptposts[0]->ID), 1), "</pre>";
-}
-        
         /** GOOGLE API **/
         echo '<div>';
         echo '<h3>Titles</h3>';
