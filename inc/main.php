@@ -615,6 +615,9 @@ break;//ONLY FOR TEST
         if(!$client){
             return false;
         }
+		if(!class_exists('Google_Service_Sheets')){
+			return false;
+		}        
         $this->service = new Google_Service_Sheets($client);
         preg_match('#d\/(.*)\/#', $url, $urlgoogleid);
         if(isset($urlgoogleid[1]) && $urlgoogleid[1] != ""){
